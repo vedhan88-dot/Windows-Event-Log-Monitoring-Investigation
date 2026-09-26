@@ -20,9 +20,8 @@ The project focuses on collecting Windows security events, analyzing individual 
 
 ## Environment
 
-- Windows 11
-- Ubuntu
-- Wazuh Manager
+- Windows 11 Host
+- Ubuntu Wazuh Manager
 - Wazuh Agent
 - Wazuh Dashboard
 - VirtualBox
@@ -33,20 +32,20 @@ The project focuses on collecting Windows security events, analyzing individual 
 ## Architecture
 
 Windows 11 Host
-        |
-        | Windows Event Logs
-        |
+       |
+       | Windows Security Events
+       v
    Wazuh Agent
-        |
-        | Event Transmission
-        |
-   Wazuh Manager
-        |
-        |
-   Wazuh Dashboard
-        |
-        |
-Event Investigation & Correlation
+       |
+       | Event Transmission
+       v
+ Wazuh Manager
+       |
+       v
+ Wazuh Dashboard
+       |
+       v
+Event Analysis & Correlation
 
 ## Windows Events Investigated
 
@@ -73,27 +72,27 @@ Used to investigate newly created processes, including process names, parent pro
 ## Investigation Workflow
 
 Windows Event Generation
-        |
-        v
-Windows Event Viewer
-        |
-        v
-Wazuh Agent
-        |
-        v
-Wazuh Manager
-        |
-        v
-Wazuh Dashboard
-        |
-        v
-Event Analysis
-        |
-        v
-Event Correlation
-        |
-        v
-Investigation Documentation
+          |
+          v
+   Windows Event Viewer
+          |
+          v
+      Wazuh Agent
+          |
+          v
+     Wazuh Manager
+          |
+          v
+     Wazuh Dashboard
+          |
+          v
+      Event Analysis
+          |
+          v
+    Event Correlation
+          |
+          v
+ Investigation Documentation
 
 ## Key Investigation Areas
 
@@ -103,23 +102,60 @@ Investigated successful and failed Windows authentication events using Event IDs
 
 ### Process Monitoring
 
-Investigated Event ID 4688 and examined process creation activity and command-line information.
+Investigated Event ID 4688 and examined process creation activity, parent processes, and command-line information.
 
 ### Privilege Monitoring
 
 Investigated Event ID 4672 to understand special privileges assigned to a Windows logon session.
 
-### Event Correlation
+### Session Correlation
 
 Correlated related Windows events using the Logon ID to follow activity across a Windows logon session.
 
 ## Evidence
 
-Screenshots and investigation evidence are stored in the `screenshots` directory.
+Screenshots and investigation evidence are stored in the screenshots directory.
+
+The project contains 12 screenshots documenting Windows Event Viewer activity, Wazuh event detection, event details, process activity, privilege assignments, and event correlation.
 
 ## Investigation Documentation
 
-Detailed event investigations are stored in the `investigations` directory.
+Detailed event investigations are stored in the investigations directory.
+
+The investigation documentation covers:
+
+- Event ID 4624 — Successful Logon
+- Event ID 4625 — Failed Logon
+- Event ID 4634 — Logoff
+- Event ID 4672 — Special Privileges Assigned
+- Event ID 4688 — Process Creation
+
+## Repository Structure
+
+Windows-Event-Log-Monitoring-Investigation/
+│
+├── investigations/
+│   ├── 4624-successful-logon.md
+│   ├── 4625-failed-logon.md
+│   ├── 4634-logoff.md
+│   ├── 4672-special-privileges.md
+│   └── 4688-process-creation.md
+│
+├── screenshots/
+│   ├── 01-windows-event-viewer-4625.png
+│   ├── 02-windows-event-viewer-4688.png
+│   ├── 03-wazuh-agent-active.png
+│   ├── 04-wazuh-4625-results.png
+│   ├── 05-wazuh-4625-details.png
+│   ├── 06-wazuh-4688-results.png
+│   ├── 07-wazuh-4688-process-details.png
+│   ├── 08-wazuh-4688-command-line.png
+│   ├── 09-wazuh-4672-details.png
+│   ├── 10-wazuh-4624-successful-logon.png
+│   ├── 11-wazuh-4634-logoff.png
+│   └── 12-wazuh-4672-logon-correlation.png
+│
+└── README.md
 
 ## Tools Used
 
@@ -136,4 +172,8 @@ Detailed event investigations are stored in the `investigations` directory.
 
 This project provided practical experience with Windows security event monitoring, Wazuh-based event collection, process monitoring, authentication analysis, privilege monitoring, and event correlation.
 
-The project demonstrates a practical workflow for investigating Windows security events from event generation through centralized monitoring and documentation.
+The project demonstrates a practical workflow for investigating Windows security events from event generation through centralized monitoring, analysis, correlation, and documentation.
+
+## Disclaimer
+
+All security events and authentication activities in this project were generated and investigated in a controlled environment for educational and documentation purposes.
